@@ -3,7 +3,11 @@ import subprocess as sp
 
 def install_shell(shell, package_manager):
    try:
-        sp.run([package_manager, shell], capture_output=True, check=True)
+       if package_manager == "pacman":
+           install_command = "-S"
+       else:
+           install_command = "install"
+        sp.run([package_manager, install_command, shell], capture_output=True, check=True)
    except sp.CalledProcessError as e:
        print(f"Error installing shell: {e}")
        
